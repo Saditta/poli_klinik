@@ -1,51 +1,55 @@
 import 'package:flutter/material.dart';
 import '../model/poli.dart';
 import 'poli_detail.dart';
+import 'poli_item.dart';
+import 'poli_form.dart';
 
 class PoliPage extends StatefulWidget {
-  const PoliPage({super.key});
+  const PoliPage({Key? key}) : super(key: key);
 
   @override
   State<PoliPage> createState() => _PoliPageState();
 }
 
 class _PoliPageState extends State<PoliPage> {
+  final List<Poli> poliList = [
+    Poli(namaPoli: "Poli Anak"),
+    Poli(namaPoli: "Poli Kandungan"),
+    Poli(namaPoli: "Poli Gigi"),
+    Poli(namaPoli: "Poli THT"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Data Poli")),
-      body: ListView(
-        children: [
+      appBar: AppBar(
+        title: const Text("Data Poli"),
+        actions: [
           GestureDetector(
-            child: Card(
-              child: ListTile(
-                title: const Text("Poli Anak"),
-              ),
-            ),
+            child: const Icon(Icons.add),
             onTap: () {
-              Poli poliAnak = new Poli(namaPoli: "Poli Anak");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PoliForm()));
+            },
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: poliList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PoliDetail(poli: poliAnak)));
+                  builder: (context) => PoliDetail(poli: poliList[index]),
+                ),
+              );
             },
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Poli Kandungan"),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Poli Gigi"),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Poli THT"),
-            ),
-          ),
-        ],
+            child: PoliItem(poli: poliList[index]),
+          );
+        },
       ),
     );
   }

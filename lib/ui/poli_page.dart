@@ -25,16 +25,19 @@ class _PoliPageState extends State<PoliPage> {
       appBar: AppBar(
         title: const Text("Data Poli"),
         actions: [
-          GestureDetector(
-            child: const Icon(Icons.add),
-            onTap: () {
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // Navigasi ke halaman form untuk menambah data poli baru
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PoliForm()));
+                MaterialPageRoute(builder: (context) => const PoliForm()),
+              );
             },
           ),
         ],
       ),
+      drawer: _buildDrawer(),
       body: ListView.builder(
         itemCount: poliList.length,
         itemBuilder: (context, index) {
@@ -51,6 +54,75 @@ class _PoliPageState extends State<PoliPage> {
           );
         },
       ),
+    );
+  }
+
+  // Fungsi untuk membangun drawer
+  Drawer _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          _buildDrawerHeader(),
+          _buildDrawerItem(Icons.home, 'Home', () {
+            Navigator.pop(context);
+          }),
+          _buildDrawerItem(Icons.settings, 'Settings', () {
+            Navigator.pop(context);
+          }),
+          _buildDrawerItem(Icons.logout, 'Logout', () {
+            Navigator.pop(context);
+            // Tambahkan logika logout di sini jika diperlukan
+          }),
+        ],
+      ),
+    );
+  }
+
+  // Widget untuk Drawer Header
+  Widget _buildDrawerHeader() {
+    return const DrawerHeader(
+      decoration: BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Color.fromARGB(188, 123, 97, 182),
+            child: Icon(
+              Icons.person,
+              size: 40,
+              color: Colors.blue,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Account Dummy',
+            style: TextStyle(
+              color: Color.fromARGB(255, 165, 207, 11),
+              fontSize: 18,
+            ),
+          ),
+          Text(
+            'dummy@bsi.ac.id',
+            style: TextStyle(
+              color: Color.fromARGB(179, 236, 9, 9),
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Fungsi untuk membuat item drawer
+  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: onTap,
     );
   }
 }

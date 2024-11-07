@@ -4,14 +4,14 @@ import 'poli_detail.dart';
 import 'poli_item.dart';
 import 'poli_form.dart';
 
-class PoliPage extends StatefulWidget {
-  const PoliPage({Key? key}) : super(key: key);
+class Myhomepage extends StatefulWidget {
+  const Myhomepage({Key? key}) : super(key: key);
 
   @override
-  State<PoliPage> createState() => _PoliPageState();
+  State<Myhomepage> createState() => _MyHomePageState();
 }
 
-class _PoliPageState extends State<PoliPage> {
+class _MyHomePageState extends State<Myhomepage> {
   final List<Poli> poliList = [
     Poli(namaPoli: "Poli Anak"),
     Poli(namaPoli: "Poli Kandungan"),
@@ -28,7 +28,6 @@ class _PoliPageState extends State<PoliPage> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              // Navigasi ke halaman form untuk menambah data poli baru
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PoliForm()),
@@ -57,7 +56,6 @@ class _PoliPageState extends State<PoliPage> {
     );
   }
 
-  // Fungsi untuk membangun drawer
   Drawer _buildDrawer() {
     return Drawer(
       child: ListView(
@@ -72,14 +70,12 @@ class _PoliPageState extends State<PoliPage> {
           }),
           _buildDrawerItem(Icons.logout, 'Logout', () {
             Navigator.pop(context);
-            // Tambahkan logika logout di sini jika diperlukan
           }),
         ],
       ),
     );
   }
 
-  // Widget untuk Drawer Header
   Widget _buildDrawerHeader() {
     return const DrawerHeader(
       decoration: BoxDecoration(
@@ -117,7 +113,6 @@ class _PoliPageState extends State<PoliPage> {
     );
   }
 
-  // Fungsi untuk membuat item drawer
   Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
       leading: Icon(icon),
